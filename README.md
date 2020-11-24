@@ -3,6 +3,7 @@ This implementation is based off of the "Ray Tracing in a Weekend" text by Peter
 However, I do include my personal modifications and twists to the original implementation, because that's the only way you learn.
 
 # File Structure
+
 root
 
 	|_ out
