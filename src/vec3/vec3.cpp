@@ -1,4 +1,4 @@
-#include "./vec3.h"
+#include "vec3.h"
 
 vec3::vec3(float const e1, float const e2, float const e3) : e({e1,e2,e3}) {}
 vec3::~vec3() {}

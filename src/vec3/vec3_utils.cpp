@@ -1,4 +1,4 @@
-#include "./vec3.h"
+#include "vec3.h"
 
 inline std::istream & operator>>(std::istream & is, vec3 & v) {
     is >> v.e[0] >> v.e[1] >> v.e[2];

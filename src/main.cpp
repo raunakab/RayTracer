@@ -4,8 +4,8 @@
 #include <fstream>
 #include <string>
 
-#include "./vec3/vec3.h"
-#include "./vec3/vec3_utils.cpp"
+#include "vec3/vec3.h"
+#include "vec3/vec3_utils.cpp"
 
 std::string path("./out/");
 
