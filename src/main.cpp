@@ -5,13 +5,13 @@
 #include <string>
 
 #include "vec3/vec3.h"
-#include "vec3/vec3_utils.cpp"
+// #include "vec3/vec3_utils.cpp"
 
 std::string path("./out/");
 
 int main() {
     std::ofstream fs;
-    fs.open(path + "test.ppm");
+    fs.open(path + "image.ppm");
 
     int const nx(200);
     int const ny(100);
