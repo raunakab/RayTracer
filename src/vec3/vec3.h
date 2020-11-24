@@ -8,8 +8,7 @@
 
 class vec3 {
 private:
-    vec3(vec3 const &) = delete;
-    vec3(vec3 const &&) = delete;
+    vec3() = delete;
     void operator=(vec3 const &) = delete;
     void operator=(vec3 const &&) = delete;
 
@@ -17,6 +16,8 @@ public:
     float e[3];
 
     vec3(float const e1, float const e2, float const e3);
+    vec3(vec3 const &);
+    vec3(vec3 const &&);
     ~vec3();
 
     inline float x() const;
