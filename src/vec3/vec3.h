@@ -15,7 +15,7 @@ private:
 public:
     float e[3];
 
-    vec3(float e1, float e2, float e3);
+    vec3(float const e1, float const e2, float const e3);
     ~vec3();
 
     inline float x() const;
