@@ -4,9 +4,8 @@ However, I do include my personal modifications and twists to the original imple
 
 # File Structure
 
-root
-
-	|_ out
+	root
+		|_ out
 
 		|_ ...
 
