@@ -48,7 +48,7 @@ inline Vec3 unit_vector(Vec3 const & v) {
 
 // my own additions
 inline std::ofstream & operator<<(std::ofstream & ofs, Vec3 & v) {
-    ofs << v.e[0] << " " << v.e[1] << " " << v.e[2];
+    ofs << int(v.e[0]) << " " << int(v.e[1]) << " " << int(v.e[2]) << "\n";
 
     return ofs;
 }

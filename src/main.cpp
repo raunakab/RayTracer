@@ -31,7 +31,7 @@ float hit_sphere(Vec3 const & center, float const radius, Ray const & r) {
 //     float b(2.0 * dot(oc, r.direction()));
 //     float c(dot(oc, oc) - radius*radius);
 //     float discriminant(b*b - 4.0*a*c);
-
+//
 //     return (discriminant > 0);
 // }
 
@@ -67,7 +67,7 @@ Init setup(int argc, char ** argv) {
 }
 
 Vec3 colour(Ray const & r) {
-    Vec3 const center(0.0, 0.0, 1.0);
+    Vec3 const center(0.0, 0.0, -1.0);
 
     float const t_0(hit_sphere(center, 0.5, r));
     if (t_0 > 0.0) {
@@ -105,11 +105,8 @@ int main(int argc, char ** argv) {
         Ray const r(origin, lower_left_corner + (u * horizontal) + (v * vertical));
         Vec3 col(colour(r));
 
-        int ir(255.99 * col[0]);
-        int ig(255.99 * col[1]);
-        int ib(255.99 * col[2]);
-
-        fs << ir << " " << ig << " " << ib << "\n";
+        col *= 255.99;
+        fs << col;
     }
 
     fs.close();
