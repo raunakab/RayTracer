@@ -9,6 +9,9 @@
 #include "vec3/vec3_utils.cpp"
 #include "ray/ray.h"
 #include "init.cpp"
+#include "objects/hittable/hittable.h"
+
+std::ofstream fs;
 
 float hit_sphere(Vec3 const & center, float const radius, Ray const & r) {
     Vec3 const OtoC(r.origin() - center);
@@ -80,28 +83,33 @@ Vec3 colour(Ray const & r) {
     return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
 }
 
+void init_file(std::string const & filename, int const nx, int const ny) {
+    fs.open("./out/" + filename + ".ppm");
+    fs << "P3\n" << nx << " " << ny << "\n255\n";
+
+    return;
+}
+
 int main(int argc, char ** argv) {
     Init init(setup(argc, argv));
+
     int const error_code(init.error_code);
     if (error_code != 0) return error_code;
 
     int const nx(init.nx);
     int const ny(init.ny);
 
-    std::ofstream fs;
-    fs.open("./out/" + init.filename + ".ppm");
+    init_file(init.filename, nx, ny);
 
     Vec3 const lower_left_corner(-2.0, -1.0, -1.0);
     Vec3 const horizontal(4.0, 0.0, 0.0);
     Vec3 const vertical(0.0, 2.0, 0.0);
     Vec3 const origin(0.0, 0.0, 0.0);
 
-    fs << "P3\n" << nx << " " << ny << "\n255\n";
     for (int j(ny-1); j>=0; --j) for (int i(0); i<nx; ++i) {
         float u(float(i) / float(nx));
         float v(float(j) / float(ny));
 
-        // vec3 col(float(i) / float(nx), float(j) / float(ny), 0.2);
         Ray const r(origin, lower_left_corner + (u * horizontal) + (v * vertical));
         Vec3 col(colour(r));
 
