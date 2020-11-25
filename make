@@ -1,7 +1,3 @@
-file=$1
-nx=$2
-ny=$3
-
 if [ -f main ]
 then
 rm main
@@ -11,6 +7,10 @@ clang++ -std=c++17 -o main ./src/main.cpp ./src/vec3/vec3.cpp ./src/vec3/vec3_ut
 
 if [ -f main ]
 then
-./main $file $2 $3
+if [ ! -d out ]
+then
+mkdir ./out/
+fi
+./main $1 $2 $3
 rm main
 fi
