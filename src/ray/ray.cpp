@@ -1,9 +1,12 @@
 #include "ray.h"
 
-ray::ray(vec3 const origin, vec3 const direction) : A(origin), B(direction) {}
-ray::ray(ray const & other) : A(other.A), B(other.B) {}
-ray::ray(ray const && other) : A(other.A), B(other.B) {}
-ray::~ray() {}
+Ray::Ray(Vec3 const origin, Vec3 const direction) : A(origin), B(direction) {}
+Ray::Ray(Ray const & other) : A(other.A), B(other.B) {}
+Ray::Ray(Ray const && other) : A(other.A), B(other.B) {}
+Ray::~Ray() {}
 
-vec3 ray::origin() const { return this->A; }
-vec3 ray::direction() const { return this->B; }
+Vec3 Ray::origin() const { return this->A; }
+Vec3 Ray::direction() const { return this->B; }
+Vec3 Ray::point_at_parameter(float const t) const {
+    return this->A + (this->B * t);
+}

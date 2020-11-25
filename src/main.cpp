@@ -12,13 +12,19 @@
 std::string const path("./out/");
 std::ofstream fs;
 
-bool hit_sphere(vec3 const & center, float const radius, ray const & r) {
-    vec3 const Q(r.origin() - center);
-    vec3 const P(r.direction());
-    float const J(dot(P, Q));
-    float const determinant(J*J - dot(Q, Q)*(dot(P, P) - (radius*radius)));
+float hit_sphere(Vec3 const & center, float const radius, Ray const & r) {
+    Vec3 const OtoC(r.origin() - center);
+    Vec3 const P(r.direction());
+    float const a(dot(OtoC, OtoC));
+    float const b(dot(P, OtoC));
+    float const discriminant(b*b - a*(dot(P, P) - (radius*radius)));
 
-    return (determinant > 0);
+    // should it be >= ?
+    if (discriminant > 0.0) {
+        return (-b - sqrt(discriminant)) / a;
+    } else {
+        return -1.0;
+    }
 }
 
 // bool hit_sphere(vec3 const & center, float const radius, ray const & r) {
@@ -31,12 +37,18 @@ bool hit_sphere(vec3 const & center, float const radius, ray const & r) {
 //     return (discriminant > 0);
 // }
 
-vec3 colour(ray const & r) {
-    if (hit_sphere(vec3(0.0, 0.0, -1000.0), 0.5, r)) return vec3(1.0, 0.0, 0.0);
+Vec3 colour(Ray const & r) {
+    Vec3 const center(0.0, 0.0, 1.0);
 
-    vec3 u(unit_vector(r.direction()));
-    float t(0.5 * (u.y() + 1.0));
-    return ((1.0 - t) * vec3(1.0, 1.0, 1.0)) + (t * vec3(0.5, 0.7, 1.0));
+    float const t_0(hit_sphere(center, 0.5, r));
+    if (t_0 > 0.0) {
+        Vec3 const N(unit_vector(r.point_at_parameter(t_0) - center));
+        return 0.5 * Vec3(N.x()+1, N.y()+1, N.z()+1);
+    }
+
+    Vec3 const u(unit_vector(r.direction()));
+    float const t(0.5 * (u.y() + 1.0));
+    return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
 }
 
 int main(int argc, char ** argv) {
@@ -64,13 +76,10 @@ int main(int argc, char ** argv) {
 
     fs.open(path + filename + ".ppm");
 
-    // int const nx(2000);
-    // int const ny(1000);
-
-    vec3 const lower_left_corner(-2.0, -1.0, -1.0);
-    vec3 const horizontal(4.0, 0.0, 0.0);
-    vec3 const vertical(0.0, 2.0, 0.0);
-    vec3 const origin(0.0, 0.0, 0.0);
+    Vec3 const lower_left_corner(-2.0, -1.0, -1.0);
+    Vec3 const horizontal(4.0, 0.0, 0.0);
+    Vec3 const vertical(0.0, 2.0, 0.0);
+    Vec3 const origin(0.0, 0.0, 0.0);
 
     fs << "P3\n" << nx << " " << ny << "\n255\n";
     for (int j(ny-1); j>=0; --j) for (int i(0); i<nx; ++i) {
@@ -78,8 +87,8 @@ int main(int argc, char ** argv) {
         float v(float(j) / float(ny));
 
         // vec3 col(float(i) / float(nx), float(j) / float(ny), 0.2);
-        ray const r(origin, lower_left_corner + (u * horizontal) + (v * vertical));
-        vec3 col(colour(r));
+        Ray const r(origin, lower_left_corner + (u * horizontal) + (v * vertical));
+        Vec3 col(colour(r));
 
         int ir(255.99 * col[0]);
         int ig(255.99 * col[1]);

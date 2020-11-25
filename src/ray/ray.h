@@ -1,26 +1,27 @@
+#include "../vec3/vec3.h"
+#include "../vec3/vec3_utils.cpp"
+
 #ifndef RAY_H
 #define RAY_H
 
-#include "../vec3/vec3.h"
-
-class ray {
+class Ray {
 private:
-    ray() = delete;
-    void operator=(ray const &) = delete;
-    void operator=(ray const &&) = delete;
+    Ray() = delete;
+    void operator=(Ray const &) = delete;
+    void operator=(Ray const &&) = delete;
 
 public:
-    vec3 const A;
-    vec3 const B;
+    Vec3 const A;
+    Vec3 const B;
 
-    ray(vec3 const origin, vec3 const direction);
-    ray(ray const &);
-    ray(ray const &&);
-    ~ray();
+    Ray(Vec3 const origin, Vec3 const direction);
+    Ray(Ray const &);
+    Ray(Ray const &&);
+    ~Ray();
 
-    vec3 origin() const;
-    vec3 direction() const;
-    vec3 point_at_parameter(float const t) const;
+    Vec3 origin() const;
+    Vec3 direction() const;
+    Vec3 point_at_parameter(float const t) const;
 };
 
 #endif
