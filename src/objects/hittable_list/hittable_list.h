@@ -20,7 +20,7 @@ public:
     HittableList(Hittable ** const, int const);
     ~HittableList();
 
-    virtual bool hit(Ray const &, float const, float const, HitRecord &) const = 0;
+    virtual bool hit(Ray const &, float const, float const, HitRecord &) const;
 };
 
 #endif

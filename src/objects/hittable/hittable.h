@@ -4,12 +4,7 @@
 #include "../../vec3/vec3.h"
 #include "../../vec3/vec3_utils.cpp"
 #include "../../ray/ray.h"
-
-struct HitRecord {
-    float t;
-    Vec3 p;
-    Vec3 normal;
-};
+#include "../hit_record/hit_record.h"
 
 class Hittable {
 private:
