@@ -8,9 +8,7 @@
 #include "vec3/vec3.h"
 #include "vec3/vec3_utils.cpp"
 #include "ray/ray.h"
-
-std::string const path("./out/");
-std::ofstream fs;
+#include "init.cpp"
 
 float hit_sphere(Vec3 const & center, float const radius, Ray const & r) {
     Vec3 const OtoC(r.origin() - center);
@@ -37,6 +35,37 @@ float hit_sphere(Vec3 const & center, float const radius, Ray const & r) {
 //     return (discriminant > 0);
 // }
 
+Init setup(int argc, char ** argv) {
+    Init init;
+    if (argc != 4) {
+        std::cout << "incorrect number of arguments\n";
+        init.error_code = -1;
+
+        return init;
+    }
+
+    init.filename = std::string(argv[1]);
+
+    try {
+        init.nx = std::stoi(std::string(argv[2]));
+    } catch (...) {
+        std::cout << "invalid 2nd operand\n";
+        init.error_code = -1;
+
+        return init;
+    }
+    try {
+        init.ny = std::stoi(std::string(argv[3]));
+    } catch (...) {
+        std::cout << "invalid 3rd operand\n";
+        init.error_code = -1;
+        
+        return init;
+    }
+
+    return init;
+}
+
 Vec3 colour(Ray const & r) {
     Vec3 const center(0.0, 0.0, 1.0);
 
@@ -52,29 +81,15 @@ Vec3 colour(Ray const & r) {
 }
 
 int main(int argc, char ** argv) {
-    if (argc != 4) {
-        std::cout << "incorrect number of arguments\n";
-        return -1;
-    }
+    Init init(setup(argc, argv));
+    int const error_code(init.error_code);
+    if (error_code != 0) return error_code;
 
-    std::string const filename(argv[1]);
-    int nx(0);
-    int ny(0);
+    int const nx(init.nx);
+    int const ny(init.ny);
 
-    try {
-        nx = std::stoi(std::string(argv[2]));
-    } catch (...) {
-        std::cout << "invalid 2nd operand\n";
-        return -1;
-    }
-    try {
-        ny = std::stoi(std::string(argv[3]));
-    } catch (...) {
-        std::cout << "invalid 3rd operand\n";
-        return -1;
-    }
-
-    fs.open(path + filename + ".ppm");
+    std::ofstream fs;
+    fs.open("./out/" + init.filename + ".ppm");
 
     Vec3 const lower_left_corner(-2.0, -1.0, -1.0);
     Vec3 const horizontal(4.0, 0.0, 0.0);
