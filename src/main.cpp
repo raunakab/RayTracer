@@ -103,7 +103,7 @@ Init setup(int argc, char ** argv) {
 }
 
 void init_file(std::string const & filename, int const nx, int const ny) {
-    fs.open("./../out/" + filename + ".ppm");
+    fs.open("./out/" + filename + ".ppm");
     fs << "P3\n" << nx << " " << ny << "\n255\n";
 
     return;

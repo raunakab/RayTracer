@@ -12,10 +12,11 @@ RUN_OLD_BINARY_FLAG="--old"
 RUN_NEW_BINARY_FLAG="--new"
 
 # FILE STRUCTURE
+CLANG_OUTPUT_NAME=compiled
 ROOT=./
 BINARY_FILENAME=${ROOT}bin/
 OUTPUT_FILENAME=${ROOT}out/
-COMPILED_BINARY=${BINARY_FILENAME}compiled
+COMPILED_BINARY=${BINARY_FILENAME}${CLANG_OUTPUT_NAME}
 
 # ERROR MESSAGES
 ERROR_ARG_NUM="incorrect number of arguments... aborting"
@@ -33,9 +34,12 @@ fi
 
 if [ $1 = ${RESET_FLAG} ]
 then
-    X="ls -a | wc -l"
-    C=$X
-    if [[ $C -gt 2 ]]
+    COUNT=0
+    for file in ${BINARY_FILENAME}*
+    do
+        COUNT=$(( ${COUNT} + 1 ))
+    done
+    if [[ $COUNT -gt 0 ]]
     then
         rm ${BINARY_FILENAME}*
     fi
@@ -88,11 +92,11 @@ then
     HITTABLE_LIST_C=${HITTABLE_LIST}hittable_list.cpp
     SPHERE_C=${SPHERE}sphere.cpp
 
-    clang++ -std=c++17 -o compiled $MAIN_C $INIT_C $VEC3_C $VEC3_UTILS_C $RAY_C $HITRECORD_C $HITTABLE_C $HITTABLE_LIST_C $SPHERE_C
+    clang++ -std=c++17 -o ${CLANG_OUTPUT_NAME} ${MAIN_C} ${INIT_C} ${VEC3_C} ${VEC3_UTILS_C} ${RAY_C} ${HITRECORD_C} ${HITTABLE_C} ${HITTABLE_LIST_C} ${SPHERE_C}
 
-    if [ -f ${COMPILED_BINARY} ]
+    if [ -f ${CLANG_OUTPUT_NAME} ]
     then
-        mv compiled ${BINARY_FILENAME}
-        ${COMPILED_BINARY} $2 $3 $4
+        ./${CLANG_OUTPUT_NAME} $2 $3 $4
+        mv ${CLANG_OUTPUT_NAME} ${BINARY_FILENAME}
     fi
 fi
