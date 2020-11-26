@@ -2,7 +2,7 @@
 #define HITTABLE_LIST_H
 
 #include "../hittable/hittable.h"
-#include "../../ray/ray.h"
+#include "../../meta/ray/ray.h"
 
 class HittableList : public Hittable {
 private:

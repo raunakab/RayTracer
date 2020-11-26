@@ -7,11 +7,13 @@ ROOT=./
 
 SRC=${ROOT}src/
 
-INIT=${SRC}init/
+META=${SRC}meta/
 OBJECTS=${SRC}objects/
-RAY=${SRC}ray/
-VEC3=${SRC}vec3/
 MAIN_C=${SRC}main.cpp
+
+INIT=${META}init/
+RAY=${META}ray/
+VEC3=${META}vec3/
 
 INIT_C=${INIT}init.cpp
 RAY_C=${RAY}ray.cpp

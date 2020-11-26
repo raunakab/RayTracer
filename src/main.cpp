@@ -6,10 +6,10 @@
 #include <istream>
 #include <float.h>
 
-#include "vec3/vec3.h"
-#include "vec3/vec3_utils.cpp"
-#include "ray/ray.h"
-#include "init/init.h"
+#include "meta/vec3/vec3.h"
+#include "meta/vec3/vec3_utils.cpp"
+#include "meta/ray/ray.h"
+#include "meta/init/init.h"
 #include "objects/hittable/hittable.h"
 #include "objects/hittable_list/hittable_list.h"
 #include "objects/sphere/sphere.h"
@@ -43,23 +43,32 @@ float hit_sphere(Vec3 const & center, float const radius, Ray const & r) {
 // }
 
 Vec3 colour(Ray const & r, Hittable * const world) {
-    Vec3 const center(0.0, 0.0, -1.0);
-    // HitRecord hr;
-    // if (world->hit(r, 0.0, MAXFLOAT, hr) {
+    HitRecord hr;
 
-    // } else {
+    if (world->hit(r, 0.0, MAXFLOAT, hr)) {
+        // Vec3 & hr_normal(hr.normal);
+        // ++(hr_normal.e[0]);
+        // ++(hr_normal.e[1]);
+        // ++(hr_normal.e[2]);
 
-    // }
+        // return 0.5 * hr_normal;
+        return 0.5 * Vec3(hr.normal.x()+1.0, hr.normal.y()+1.0, hr.normal.z()+1.0);
+    } else {
+        Vec3 const u(unit_vector(r.direction()));
+        float const t(0.5 * (u.y() + 1.0));
 
-    float const t_0(hit_sphere(center, 0.5, r));
-    if (t_0 > 0.0) {
-        Vec3 const N(unit_vector(r.point_at_parameter(t_0) - center));
-        return 0.5 * Vec3(N.x()+1, N.y()+1, N.z()+1);
+        return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
     }
 
-    Vec3 const u(unit_vector(r.direction()));
-    float const t(0.5 * (u.y() + 1.0));
-    return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
+    // float const t_0(hit_sphere(center, 0.5, r));
+    // if (t_0 > 0.0) {
+    //     Vec3 const N(unit_vector(r.point_at_parameter(t_0) - center));
+    //     return 0.5 * Vec3(N.x()+1, N.y()+1, N.z()+1);
+    // }
+
+    // Vec3 const u(unit_vector(r.direction()));
+    // float const t(0.5 * (u.y() + 1.0));
+    // return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
 }
 
 Init setup(int argc, char ** argv) {
@@ -117,8 +126,8 @@ int main(int argc, char ** argv) {
     Vec3 const origin(0.0, 0.0, 0.0);
 
     Hittable * hl[2];
-    *(hl) = new Sphere(Vec3(0.0, 0.0, -1.0), 0.5);
-    *(hl + 1) = new Sphere(Vec3(0.0, -100.5, -1.0), 100.0);
+    hl[0] = new Sphere(Vec3(0.0, 0.0, -1.0), 0.5);
+    hl[1] = new Sphere(Vec3(0.0, -100.5, -1.0), 100.0);
 
     Hittable * const world(new HittableList(hl, 2));
 
@@ -132,6 +141,10 @@ int main(int argc, char ** argv) {
         col *= 255.99;
         fs << col;
     }
+
+    delete hl[0];
+    delete hl[1];
+    delete world;
 
     fs.close();
     return 0;
