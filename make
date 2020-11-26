@@ -32,17 +32,15 @@ then
     mkdir ${OUTPUT_FILENAME}
 fi
 
+if [ $# -eq 0 ]
+then
+echo "asdf"
+exit 0
+fi
+
 if [ $1 = ${RESET_FLAG} ]
 then
-    COUNT=0
-    for file in ${BINARY_FILENAME}*
-    do
-        COUNT=$(( ${COUNT} + 1 ))
-    done
-    if [[ $COUNT -gt 0 ]]
-    then
-        rm ${BINARY_FILENAME}*
-    fi
+    rm ${BINARY_FILENAME}*
     exit 0
 fi
 
