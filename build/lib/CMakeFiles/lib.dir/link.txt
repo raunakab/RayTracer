@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc liblib.a CMakeFiles/lib.dir/Logger/logger.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib liblib.a
