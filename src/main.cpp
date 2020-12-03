@@ -6,6 +6,8 @@
 #include <istream>
 #include <float.h>
 
+#include <Logger/logger.h>
+
 #include <vec3.h>
 #include <vec3_utils.h>
 #include <ray.h>
@@ -70,22 +72,17 @@ Vec3 colour(Ray const & r, Hittable * const world) {
 }
 
 void setup(int argc, char ** argv, std::ofstream & fs, int & nx, int & ny) {
-    if (argc != 4) {
-        std::cout << "incorrect number of arguments\n";
-        exit(-1);
-    }
+    if (argc != 4) Logger::error(std::string("incorrect number of arguments"), -1);
 
     try {
         nx = std::stoi(std::string(argv[2]));
     } catch (...) {
-        std::cout << "invalid 2nd operand\n";
-        exit(-1);
+        Logger::error(std::string("invalid 2nd operand"), -1);
     }
     try {
         ny = std::stoi(std::string(argv[3]));
     } catch (...) {
-        std::cout << "invalid 3rd operand\n";
-        exit(-1);
+        Logger::error(std::string("invalid 3rd operand"), -1);
     }
 
     fs.open("./../../out/" + std::string(argv[1]) + ".ppm");
