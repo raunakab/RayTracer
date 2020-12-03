@@ -1,0 +1,8 @@
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/build/CMakeFiles/rebuild_cache.dir
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/build/CMakeFiles/edit_cache.dir
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/build/lib/CMakeFiles/rebuild_cache.dir
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/build/lib/CMakeFiles/edit_cache.dir
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/build/lib/CMakeFiles/lib.dir
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/build/src/CMakeFiles/rebuild_cache.dir
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/build/src/CMakeFiles/edit_cache.dir
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/build/src/CMakeFiles/main.dir

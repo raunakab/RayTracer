@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/lib/Logger/logger.cpp
+logger.h
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/lib/Logger/logger.h
+
+/Users/rbhagat/home/ubc/courses/2020-2021/cpsc314/homework/coding4/raytracer/lib/Logger/logger.h
+stdio.h
+-
+stdlib.h
+-
+iostream
+-
+ctime
+-
+string
+-
+

@@ -6,16 +6,14 @@
 #include <istream>
 #include <float.h>
 
-#include "meta/vec3/vec3.h"
-#include "meta/vec3/vec3_utils.cpp"
-#include "meta/ray/ray.h"
-#include "meta/init/init.h"
-#include "objects/hittable/hittable.h"
-#include "objects/hittable_list/hittable_list.h"
-#include "objects/sphere/sphere.h"
-#include "objects/hit_record/hit_record.h"
-
-std::ofstream fs;
+#include <vec3.h>
+#include <vec3_utils.h>
+#include <ray.h>
+#include <init.h>
+#include <hittable.h>
+#include <hittable_list.h>
+#include <sphere.h>
+#include <hit_record.h>
 
 float hit_sphere(Vec3 const & center, float const radius, Ray const & r) {
     Vec3 const OtoC(r.origin() - center);
@@ -71,54 +69,37 @@ Vec3 colour(Ray const & r, Hittable * const world) {
     // return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
 }
 
-Init setup(int argc, char ** argv) {
-    Init init;
+void setup(int argc, char ** argv, std::ofstream & fs, int & nx, int & ny) {
     if (argc != 4) {
         std::cout << "incorrect number of arguments\n";
-        init.error_code = -1;
-
-        return init;
+        exit(-1);
     }
 
-    init.filename = std::string(argv[1]);
-
     try {
-        init.nx = std::stoi(std::string(argv[2]));
+        nx = std::stoi(std::string(argv[2]));
     } catch (...) {
         std::cout << "invalid 2nd operand\n";
-        init.error_code = -1;
-
-        return init;
+        exit(-1);
     }
     try {
-        init.ny = std::stoi(std::string(argv[3]));
+        ny = std::stoi(std::string(argv[3]));
     } catch (...) {
         std::cout << "invalid 3rd operand\n";
-        init.error_code = -1;
-        
-        return init;
+        exit(-1);
     }
 
-    return init;
-}
-
-void init_file(std::string const & filename, int const nx, int const ny) {
-    fs.open("./out/" + filename + ".ppm");
+    fs.open("./../../out/" + std::string(argv[1]) + ".ppm");
     fs << "P3\n" << nx << " " << ny << "\n255\n";
 
     return;
 }
 
 int main(int argc, char ** argv) {
-    Init init(setup(argc, argv));
+    std::ofstream fs;
+    int nx;
+    int ny;
 
-    int const error_code(init.error_code);
-    if (error_code != 0) return error_code;
-
-    int const nx(init.nx);
-    int const ny(init.ny);
-
-    init_file(init.filename, nx, ny);
+    setup(argc, argv, fs, nx, ny);
 
     Vec3 const lower_left_corner(-2.0, -1.0, -1.0);
     Vec3 const horizontal(4.0, 0.0, 0.0);
