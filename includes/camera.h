@@ -2,7 +2,7 @@
 #define CAMERA_H
 
 #include <ray.h>
-#include <vec3_utils.h>
+#include <vec3Utils.h>
 
 class Camera {
 private:

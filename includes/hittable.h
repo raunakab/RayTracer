@@ -2,9 +2,9 @@
 #define HITTABLE_H
 
 #include <vec3.h>
-#include <vec3_utils.h>
+#include <vec3Utils.h>
 #include <ray.h>
-#include <hit_record.h>
+#include <hitRecord.h>
 
 class Hittable {
 private:

@@ -109,7 +109,7 @@ inline float Vec3::squaredLength() const {
 }
 inline void Vec3::makeUnitVector() {
     float const length(this->length());
-    (*this) *= length;
+    (*this) /= length;
 
     return;
 }

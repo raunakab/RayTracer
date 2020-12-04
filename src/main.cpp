@@ -6,41 +6,34 @@
 #include <string>
 #include <istream>
 #include <float.h>
+#include <math.h>
 
 #include <Logger/logger.h>
 
 #include <camera.h>
 #include <vec3.h>
-#include <vec3_utils.h>
+#include <vec3Utils.h>
 #include <ray.h>
 #include <hittable.h>
-#include <hittable_list.h>
+#include <hittableList.h>
 #include <sphere.h>
-#include <hit_record.h>
+#include <hitRecord.h>
+#include <lambertian.h>
+#include <metal.h>
+#include <dielectric.h>
 
-float hit_sphere(Vec3 const & center, float const radius, Ray const & r) {
-    Vec3 const OtoC(r.origin() - center);
-    Vec3 const P(r.direction());
-    float const a(dot(OtoC, OtoC));
-    float const b(dot(P, OtoC));
-    float const discriminant(b*b - a*(dot(P, P) - (radius*radius)));
+int const maxDepth = 50;
 
-    // should it be >= ?
-    if (discriminant > 0.0) {
-        return (-b - sqrt(discriminant)) / a;
-    } else {
-        return -1.0;
-    }
-}
+Vec3 colour(Ray const & r, Hittable * const world, int const depth) {
+    HitRecord record;
 
-Vec3 colour(Ray const & r, Hittable * const world) {
-    HitRecord hr;
+    if (world->hit(r, 0.001, MAXFLOAT, record)) {
+        Ray scattered(Vec3(0.0, 0.0, 0.0), Vec3(0.0, 0.0, 0.0));
+        Vec3 attenuation(0.0, 0.0, 0.0);
 
-    if (world->hit(r, 0.0, MAXFLOAT, hr)) {
-        Vec3 & normal(hr.normal);
-        normal += Vec3(1.0, 1.0, 1.0);
-
-        return 0.5 * normal;
+        if (depth < maxDepth && record.material && record.material->scatter(r, record, attenuation, scattered))
+            return attenuation * colour(scattered, world, depth+1);
+        else return Vec3(0.0, 0.0, 0.0);
     } else {
         Vec3 dir(r.direction());
         dir.makeUnitVector();
@@ -85,10 +78,14 @@ int main(int argc, char ** argv) {
     setup(argc, argv, fs, nx, ny, ns);
     srand48(time(0));
 
-    int const length(2);
+    int const length(5);
     Hittable * hl[length];
-    hl[0] = new Sphere(Vec3(0.0, 0.0, -1.0), 0.5);
-    hl[1] = new Sphere(Vec3(0.0, -100.5, -1.0), 100.0);
+
+    hl[0] = new Sphere(Vec3(0.0, 0.0, -1.0),      0.5, new Lambertian(Vec3(0.1, 0.2, 0.5)));
+    hl[1] = new Sphere(Vec3(0.0, -100.5, -1.0), 100.0, new Lambertian(Vec3(0.8, 0.8, 0.0)));
+    hl[2] = new Sphere(Vec3(1.0, 0.0, -1.0),      0.5, new Metal(Vec3(0.8, 0.6, 0.2), 0.2));
+    hl[3] = new Sphere(Vec3(-1.0, 0.0, -1.0),     0.5, new Dielectric(1.5));
+    hl[4] = new Sphere(Vec3(-1.0, 0.0, -1.0),   -0.45, new Dielectric(1.5));
 
 
     Hittable * const world(new HittableList(hl, length));
@@ -100,9 +97,13 @@ int main(int argc, char ** argv) {
             float u((float(i) + drand48()) / float(nx));
             float v((float(j) + drand48()) / float(ny));
 
-            col += colour(camera.getRay(u,v), world);
+            col += colour(camera.getRay(u,v), world, 0);
         }
         col /= float(ns);
+
+        col.e[0] = sqrt(col.e[0]);
+        col.e[1] = sqrt(col.e[1]);
+        col.e[2] = sqrt(col.e[2]);
 
         col *= 255.99;
         fs << col;

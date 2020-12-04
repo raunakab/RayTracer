@@ -4,7 +4,8 @@
 #include <vec3.h>
 #include <hittable.h>
 #include <ray.h>
-#include <vec3_utils.h>
+#include <vec3Utils.h>
+#include <material.h>
 
 class Sphere : public Hittable {
 private:
@@ -15,10 +16,11 @@ private:
     void operator=(Sphere const &&) = delete;
 
 public:
-    Vec3 const center;
+    Vec3 const centre;
     float const radius;
+    Material const * const material;
 
-    Sphere(Vec3 const &, float const);
+    Sphere(Vec3 const &, float const, Material const * const);
     ~Sphere();
 
     virtual bool hit(Ray const &, float const, float const, HitRecord &) const;
