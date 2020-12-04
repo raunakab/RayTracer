@@ -1,10 +1,10 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include "vec3.h"
-#include "hittable.h"
-#include "ray.h"
-#include "vec3_utils.h"
+#include <vec3.h>
+#include <hittable.h>
+#include <ray.h>
+#include <vec3_utils.h>
 
 class Sphere : public Hittable {
 private:

@@ -1,4 +1,4 @@
-#include "hittable.h"
+#include <hittable.h>
 
 Hittable::Hittable() {}
 Hittable::~Hittable() {}

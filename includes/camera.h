@@ -14,9 +14,7 @@ public:
     Camera();
     ~Camera();
 
-    Ray getRay(int const u, int const v) const {
-
-    }
+    Ray getRay(int const, int const) const;
 };
 
 #endif

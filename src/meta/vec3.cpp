@@ -1,4 +1,4 @@
-#include "vec3.h"
+#include <vec3.h>
 
 Vec3::Vec3(float const e0, float const e1, float const e2) {
     // initializer list does not work for clang++

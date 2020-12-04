@@ -1,4 +1,4 @@
-#include "hittable_list.h"
+#include <hittable_list.h>
 
 HittableList::HittableList(Hittable ** const list, int const length) : list(list), length(length) {}
 HittableList::~HittableList() { /** you may need some logic in here, since you have pointers... */ }

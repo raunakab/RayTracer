@@ -1,4 +1,4 @@
-#include "ray.h"
+#include <ray.h>
 
 Ray::Ray(Vec3 const origin, Vec3 const direction) : A(origin), B(direction) {}
 Ray::Ray(Ray const & other) : A(other.A), B(other.B) {}

@@ -1,4 +1,4 @@
-#include "hit_record.h"
+#include <hit_record.h>
 
 HitRecord::HitRecord() : t(0.0), p(0.0, 0.0, 0.0), normal(0.0, 0.0, 0.0) {}
 HitRecord::HitRecord(float const t, Vec3 const & p, Vec3 const & normal) : t(t), p(p), normal(normal) {}

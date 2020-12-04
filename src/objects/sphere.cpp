@@ -1,4 +1,4 @@
-#include "sphere.h"
+#include <sphere.h>
 
 Sphere::Sphere(Vec3 const & center, float const radius) : Hittable(), center(center), radius(radius) {}
 Sphere::~Sphere() {}

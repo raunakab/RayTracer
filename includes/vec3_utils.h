@@ -6,7 +6,7 @@
 #ifndef VEC3_UTILS_H
 #define VEC3_UTILS_H
 
-#include "vec3.h"
+#include <vec3.h>
 
 inline std::istream & operator>>(std::istream & is, Vec3 & v) {
     is >> v.e[0] >> v.e[1] >> v.e[2];
