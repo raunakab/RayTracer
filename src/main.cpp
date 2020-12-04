@@ -5,7 +5,6 @@
 #include <string>
 #include <istream>
 #include <float.h>
-
 #include <Logger/logger.h>
 
 #include <vec3.h>
