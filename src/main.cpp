@@ -5,12 +5,12 @@
 #include <string>
 #include <istream>
 #include <float.h>
+
 #include <Logger/logger.h>
 
 #include <vec3.h>
 #include <vec3_utils.h>
 #include <ray.h>
-#include <init.h>
 #include <hittable.h>
 #include <hittable_list.h>
 #include <sphere.h>
@@ -53,7 +53,7 @@ Vec3 colour(Ray const & r, Hittable * const world) {
         // return 0.5 * hr_normal;
         return 0.5 * Vec3(hr.normal.x()+1.0, hr.normal.y()+1.0, hr.normal.z()+1.0);
     } else {
-        Vec3 const u(unit_vector(r.direction()));
+        Vec3 const u(unitVector(r.direction()));
         float const t(0.5 * (u.y() + 1.0));
 
         return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
@@ -61,11 +61,11 @@ Vec3 colour(Ray const & r, Hittable * const world) {
 
     // float const t_0(hit_sphere(center, 0.5, r));
     // if (t_0 > 0.0) {
-    //     Vec3 const N(unit_vector(r.point_at_parameter(t_0) - center));
+    //     Vec3 const N(unitVector(r.pointAtParameter(t_0) - center));
     //     return 0.5 * Vec3(N.x()+1, N.y()+1, N.z()+1);
     // }
 
-    // Vec3 const u(unit_vector(r.direction()));
+    // Vec3 const u(unitVector(r.direction()));
     // float const t(0.5 * (u.y() + 1.0));
     // return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
 }

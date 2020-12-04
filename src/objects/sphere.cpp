@@ -22,7 +22,7 @@ bool Sphere::hit(Ray const & r, float const t_min, float const t_max, HitRecord 
         float root(firstTerm - secondTerm);
         if (t_min < root && root < t_max) {
             hr.t = root;
-            hr.p = r.point_at_parameter(root);
+            hr.p = r.pointAtParameter(root);
             hr.normal = (hr.p - ctr) / rad;
 
             return true;
@@ -31,7 +31,7 @@ bool Sphere::hit(Ray const & r, float const t_min, float const t_max, HitRecord 
         root = firstTerm + secondTerm;
         if (t_min < root && root < t_max) {
             hr.t = root;
-            hr.p = r.point_at_parameter(root);
+            hr.p = r.pointAtParameter(root);
             hr.normal = (hr.p - ctr) / rad;
 
             return true;

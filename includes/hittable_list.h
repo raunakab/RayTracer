@@ -1,8 +1,8 @@
 #ifndef HITTABLE_LIST_H
 #define HITTABLE_LIST_H
 
-#include "hittable.h"
-#include "ray.h"
+#include <hittable.h>
+#include <ray.h>
 
 class HittableList : public Hittable {
 private:

@@ -47,7 +47,7 @@ inline Vec3 cross(Vec3 const & v1, Vec3 const & v2) {
     return Vec3((v1.e[1]*v2.e[2])-(v1.e[2]*v2.e[1]), -((v1.e[0]*v2.e[2])-(v1.e[2]*v2.e[0])), (v1.e[0]*v2.e[1])-(v1.e[1]*v2.e[0]));
 }
 
-inline Vec3 unit_vector(Vec3 const & v) {
+inline Vec3 unitVector(Vec3 const & v) {
     return v / (v.length());
 }
 

@@ -7,6 +7,6 @@ Ray::~Ray() {}
 
 Vec3 Ray::origin() const { return this->A; }
 Vec3 Ray::direction() const { return this->B; }
-Vec3 Ray::point_at_parameter(float const t) const {
+Vec3 Ray::pointAtParameter(float const t) const {
     return this->A + (this->B * t);
 }

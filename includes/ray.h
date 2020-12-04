@@ -21,7 +21,7 @@ public:
 
     Vec3 origin() const;
     Vec3 direction() const;
-    Vec3 point_at_parameter(float const t) const;
+    Vec3 pointAtParameter(float const t) const;
 };
 
 #endif

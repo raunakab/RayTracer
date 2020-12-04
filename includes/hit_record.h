@@ -1,8 +1,8 @@
 #ifndef HIT_RECORD_H
 #define HIT_RECORD_H
 
-#include "vec3.h"
-#include "vec3_utils.h"
+#include <vec3.h>
+#include <vec3_utils.h>
 
 struct HitRecord {
     float t;

@@ -43,8 +43,8 @@ public:
     inline Vec3 & operator/=(float const t);
 
     inline float length() const;
-    inline float squared_length() const;
-    inline void make_unit_vector();
+    inline float squaredLength() const;
+    inline void makeUnitVector();
 };
 
 inline float Vec3::x() const { return this->e[0]; }
@@ -101,13 +101,13 @@ inline Vec3 & Vec3::operator/=(float const t) {
 }
 
 inline float Vec3::length() const {
-    float const sd(this->squared_length()); // convert this into a non-function call?
+    float const sd(this->squaredLength()); // convert this into a non-function call?
     return sqrt(sd);
 }
-inline float Vec3::squared_length() const {
+inline float Vec3::squaredLength() const {
     return (this->e[0])*(this->e[0]) + (this->e[1])*(this->e[1]) + (this->e[2])*(this->e[2]);
 }
-inline void Vec3::make_unit_vector() {
+inline void Vec3::makeUnitVector() {
     float const length(this->length());
     (*this) *= length;
 
