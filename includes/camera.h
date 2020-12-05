@@ -10,7 +10,6 @@ class Camera {
 private:
     Camera() = delete;
     Camera(Camera const &) = delete;
-    Camera(Camera const &&) = delete;
     void operator=(Camera const &) = delete;
     void operator=(Camera const &&) = delete;
 
@@ -27,6 +26,7 @@ public:
     float const lensRadius;
 
     Camera(Vec3 const &, Vec3 const &, Vec3 const &, float const, float const, float const, float const);
+    Camera(Camera const &&);
     ~Camera();
 
     Ray getRay(float const, float const) const;

@@ -29,15 +29,15 @@ private:
     Vec3 colour(Ray const &, int const) const;
 
 public:
+    std::string const filePath;
     Camera const camera;
     Hittable const * const hittable;
-    std::ofstream fs;
     int const maxBounce;
 
     RayTracer(
+        std::string const &&,
         Camera const &&,
         Hittable const * const &&,
-        std::string const,
         int const
     );
     ~RayTracer();

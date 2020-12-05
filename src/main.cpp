@@ -21,30 +21,31 @@
 #include <lambertian.h>
 #include <metal.h>
 #include <dielectric.h>
+#include <raytracer.h>
 
-int const maxDepth = 50;
+// int const maxDepth = 50;
 
-Vec3 colour(Ray const & r, Hittable const * const world, int const depth) {
-    HitRecord record;
+// Vec3 colour(Ray const & r, Hittable const * const world, int const depth) {
+//     HitRecord record;
 
-    if (world->hit(r, 0.001, MAXFLOAT, record)) {
-        Ray scattered(Vec3(0.0, 0.0, 0.0), Vec3(0.0, 0.0, 0.0));
-        Vec3 attenuation(0.0, 0.0, 0.0);
+//     if (world->hit(r, 0.001, MAXFLOAT, record)) {
+//         Ray scattered(Vec3(0.0, 0.0, 0.0), Vec3(0.0, 0.0, 0.0));
+//         Vec3 attenuation(0.0, 0.0, 0.0);
 
-        if (depth < maxDepth && record.material && record.material->scatter(r, record, attenuation, scattered))
-            return attenuation * colour(scattered, world, depth+1);
-        else return Vec3(0.0, 0.0, 0.0);
-    } else {
-        Vec3 dir(r.direction());
-        dir.makeUnitVector();
+//         if (depth < maxDepth && record.material && record.material->scatter(r, record, attenuation, scattered))
+//             return attenuation * colour(scattered, world, depth+1);
+//         else return Vec3(0.0, 0.0, 0.0);
+//     } else {
+//         Vec3 dir(r.direction());
+//         dir.makeUnitVector();
 
-        float const t(0.5 * (dir.y() + 1.0));
+//         float const t(0.5 * (dir.y() + 1.0));
 
-        return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
-    }
-}
+//         return ((1.0 - t) * Vec3(1.0, 1.0, 1.0)) + (t * Vec3(0.5, 0.7, 1.0));
+//     }
+// }
 
-void setup(int argc, char ** argv, std::ofstream & fs, int & nx, int & ny, int & ns) {
+void setup(int argc, char ** argv, std::string & filePath, int & nx, int & ny, int & ns) {
     if (argc != 5) Logger::error(std::string("incorrect number of arguments"), -1);
 
     try {
@@ -63,19 +64,21 @@ void setup(int argc, char ** argv, std::ofstream & fs, int & nx, int & ny, int &
         Logger::error(std::string("invalid aliasing degree"), -1);
     }
 
-    fs.open("./../../out/" + std::string(argv[1]) + ".ppm");
-    fs << "P3\n" << nx << " " << ny << "\n255\n";
+    // fs.open("./../../out/" + std::string(argv[1]) + ".ppm");
+    // fs << "P3\n" << nx << " " << ny << "\n255\n";
+
+    filePath = "./../../out/" + std::string(argv[1]);
 
     return;
 }
 
 int main(int argc, char ** argv) {
-    std::ofstream fs;
+    std::string filePath;
     int nx;
     int ny;
     int ns;
 
-    setup(argc, argv, fs, nx, ny, ns);
+    setup(argc, argv, filePath, nx, ny, ns);
     srand48(time(0));
 
     float const radius(0.2);
@@ -119,28 +122,31 @@ int main(int argc, char ** argv) {
     Vec3 up(0.0, 1.0, 0.0);
     float distanceToFocus((lookAt - lookFrom).length());
     float aperture(1.0);
-    Camera camera(lookFrom, lookAt, up, M_PI / 9, float(nx) / float(ny), aperture, distanceToFocus);
+    Camera const camera(lookFrom, lookAt, up, M_PI / 9, float(nx) / float(ny), aperture, distanceToFocus);
 
-    for (int j(ny-1); j>=0; --j) for (int i(0); i<nx; ++i) {
-        Vec3 col(0.0, 0.0, 0.0);
-        for (int s(0); s<ns; ++s) {
-            float u((float(i) + drand48()) / float(nx));
-            float v((float(j) + drand48()) / float(ny));
+    RayTracer rayTracer(std::move(camera), std::move(world), std::move(filePath), 50);
+    rayTracer.start(nx, ny, ns);
 
-            col += colour(camera.getRay(u,v), world, 0);
-        }
-        col /= float(ns);
+    // for (int j(ny-1); j>=0; --j) for (int i(0); i<nx; ++i) {
+    //     Vec3 col(0.0, 0.0, 0.0);
+    //     for (int s(0); s<ns; ++s) {
+    //         float u((float(i) + drand48()) / float(nx));
+    //         float v((float(j) + drand48()) / float(ny));
 
-        col.e[0] = sqrt(col.e[0]);
-        col.e[1] = sqrt(col.e[1]);
-        col.e[2] = sqrt(col.e[2]);
+    //         col += colour(camera.getRay(u,v), world, 0);
+    //     }
+    //     col /= float(ns);
 
-        col *= 255.99;
-        fs << col;
-    }
+    //     col.e[0] = sqrt(col.e[0]);
+    //     col.e[1] = sqrt(col.e[1]);
+    //     col.e[2] = sqrt(col.e[2]);
 
-    delete world;
+    //     col *= 255.99;
+    //     fs << col;
+    // }
 
-    fs.close();
+    // delete world;
+
+    // fs.close();
     return 0;
 }

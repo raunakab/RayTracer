@@ -1,17 +1,16 @@
 #include <raytracer.h>
 
 RayTracer::RayTracer(
+    std::string const && filePath,
     Camera const && camera,
     Hittable const * const && hittable,
-    std::string const filePath,
     int const maxBounce
 ) :
+filePath(filePath),
 camera(std::move(camera)),
 hittable(hittable),
 maxBounce(maxBounce) {}
-RayTracer::~RayTracer() {
-
-}
+RayTracer::~RayTracer() { delete this->hittable; }
 
 Vec3 RayTracer::colour(Ray const & ray, int const currentBounce) const {
     HitRecord record;
@@ -35,8 +34,10 @@ Vec3 RayTracer::colour(Ray const & ray, int const currentBounce) const {
 
 void RayTracer::start(int const nx, int const ny, int const ns) const {
     std::ofstream fs;
+    fs.open(this->filePath + ".ppm");
+    fs << "P3\n" << nx << " " << ny << "\n255\n";
 
-    for (int j(ny-1); j>=0; --j) for (int i(0); i<nx; ++i) {
+    for (int j(ny - 1); j>=0; --j) for (int i(0); i<nx; ++i) {
         Vec3 col(0.0, 0.0, 0.0);
 
         for (int s(0); s<ns; ++s) {
@@ -54,4 +55,6 @@ void RayTracer::start(int const nx, int const ny, int const ns) const {
         col *= 255.99;
         fs << col;
     }
+
+    fs.close();
 }

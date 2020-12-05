@@ -11,6 +11,18 @@ lowerLeftCorner(this->origin - (focusDistance * ((this->halfWidth * this->u) + (
 horizontal((2 * focusDistance * this->halfWidth) * this->u),
 vertical((2 * focusDistance * this->halfHeight) * this->v),
 lensRadius(aperture / 2) {}
+Camera::Camera(Camera const && other) :
+w(other.w),
+u(other.u),
+v(other.v),
+halfHeight(other.halfHeight),
+halfWidth(other.halfWidth),
+origin(other.origin),
+lowerLeftCorner(other.lowerLeftCorner),
+horizontal(other.horizontal),
+vertical(other.vertical),
+lensRadius(other.lensRadius)
+{}
 Camera::~Camera() {}
 
 Ray Camera::getRay(float const s, float const t) const {
