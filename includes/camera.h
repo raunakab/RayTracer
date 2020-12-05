@@ -3,21 +3,25 @@
 
 #include <ray.h>
 #include <vec3Utils.h>
+#include <math.h>
 
 class Camera {
 private:
+    Camera() = delete;
     Camera(Camera const &) = delete;
     Camera(Camera const &&) = delete;
     void operator=(Camera const &) = delete;
     void operator=(Camera const &&) = delete;
 
 public:
-    Vec3 origin;
-    Vec3 lowerLeftCorner;
-    Vec3 horizontal;
-    Vec3 vertical;
+    float const halfHeight;
+    float const halfWidth;
+    Vec3 const origin;
+    Vec3 const lowerLeftCorner;
+    Vec3 const horizontal;
+    Vec3 const vertical;
 
-    Camera();
+    Camera(float const, float const);
     ~Camera();
 
     Ray getRay(float const, float const) const;
