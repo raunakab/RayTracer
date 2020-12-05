@@ -78,7 +78,6 @@ int main(int argc, char ** argv) {
     setup(argc, argv, fs, nx, ny, ns);
     srand48(time(0));
 
-    // float R(cos(M_PI_4));
     int const length(5);
     Hittable * hl[length];
 
