@@ -51,6 +51,7 @@ inline Vec3 unitVector(Vec3 const & v) {
 }
 
 Vec3 randomUnitVector();
+Vec3 randomInUnitDisk();
 void reflect(Vec3 const &, Vec3 const &, Vec3 &);
 bool refract(Vec3 const &, Vec3 const &, float const, Vec3 &);
 float schlick(float const, float const);

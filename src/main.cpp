@@ -78,21 +78,24 @@ int main(int argc, char ** argv) {
     setup(argc, argv, fs, nx, ny, ns);
     srand48(time(0));
 
-    float R(cos(M_PI_4));
-    int const length(2);
+    // float R(cos(M_PI_4));
+    int const length(5);
     Hittable * hl[length];
 
-    // hl[0] = new Sphere(Vec3(0.0, 0.0, -1.0),      0.5, new Lambertian(Vec3(0.1, 0.2, 0.5)));
-    // hl[1] = new Sphere(Vec3(0.0, -100.5, -1.0), 100.0, new Lambertian(Vec3(0.8, 0.8, 0.0)));
-    // hl[2] = new Sphere(Vec3(1.0, 0.0, -1.0),      0.5, new Metal(Vec3(0.8, 0.6, 0.2), 0.2));
-    // hl[3] = new Sphere(Vec3(-1.0, 0.0, -1.0),     0.5, new Dielectric(1.5));
-    // hl[4] = new Sphere(Vec3(-1.0, 0.0, -1.0),   -0.45, new Dielectric(1.5));
-
-    hl[0] = new Sphere(Vec3(-R, 0.0, -1.0), R, new Lambertian(Vec3(0.0, 0.0, 1.0)));
-    hl[1] = new Sphere(Vec3( R, 0.0, -1.0), R, new Lambertian(Vec3(1.0, 0.0, 0.0)));
+    hl[0] = new Sphere(Vec3(0.0, 0.0, -1.0),      0.5, new Lambertian(Vec3(0.1, 0.2, 0.5)));
+    hl[1] = new Sphere(Vec3(0.0, -100.5, -1.0), 100.0, new Lambertian(Vec3(0.8, 0.8, 0.0)));
+    hl[2] = new Sphere(Vec3(1.0, 0.0, -1.0),      0.5, new Metal(Vec3(0.8, 0.6, 0.2), 0.2));
+    hl[3] = new Sphere(Vec3(-1.0, 0.0, -1.0),     0.5, new Dielectric(1.5));
+    hl[4] = new Sphere(Vec3(-1.0, 0.0, -1.0),   -0.45, new Dielectric(1.5));
 
     Hittable * const world(new HittableList(hl, length));
-    Camera camera(M_PI_2, float(nx) / float(ny));
+
+    Vec3 lookFrom(3.0, 3.0, 2.0);
+    Vec3 lookAt(0.0, 0.0, -1.0);
+    Vec3 up(0.0, 1.0, 0.0);
+    float distanceToFocus((lookAt - lookFrom).length());
+    float aperture(2.0);
+    Camera camera(lookFrom, lookAt, up, M_PI / 9, float(nx) / float(ny), aperture, distanceToFocus);
 
     for (int j(ny-1); j>=0; --j) for (int i(0); i<nx; ++i) {
         Vec3 col(0.0, 0.0, 0.0);

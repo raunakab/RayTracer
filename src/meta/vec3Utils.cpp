@@ -10,6 +10,16 @@ Vec3 randomUnitVector() {
 
     return point;
 }
+Vec3 randomInUnitDisk() {
+    Vec3 const displacement(1.0, 1.0, 0.0);
+    Vec3 point(0.0, 0.0, 0.0);
+
+    do {
+        point = (2 * Vec3(drand48(), drand48(), 0.0)) - displacement;
+    } while (point.squaredLength() >= 1.0);
+
+    return point;
+}
 void reflect(Vec3 const & v, Vec3 const & normal, Vec3 & resultDestination) {
     resultDestination = v - ((2 * dot(v, normal)) * normal);
 }
