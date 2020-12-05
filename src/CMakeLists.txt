@@ -19,6 +19,8 @@ add_executable(
     ../includes/vec3.h
     ../includes/vec3Utils.h
 
+    ../includes/raytracer.h
+
     hit/hitRecord.cpp
     hit/hittable.cpp
     hit/hittableList.cpp
@@ -34,6 +36,8 @@ add_executable(
     meta/vec3Utils.cpp
 
     objects/sphere.cpp
+
+    raytracer/raytracer.cpp
 )
 
 target_include_directories( main PUBLIC

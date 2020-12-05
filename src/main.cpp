@@ -24,7 +24,7 @@
 
 int const maxDepth = 50;
 
-Vec3 colour(Ray const & r, Hittable * const world, int const depth) {
+Vec3 colour(Ray const & r, Hittable const * const world, int const depth) {
     HitRecord record;
 
     if (world->hit(r, 0.001, MAXFLOAT, record)) {
@@ -112,7 +112,7 @@ int main(int argc, char ** argv) {
     // hl[3] = new Sphere(Vec3(-1.0, 0.0, -1.0),     0.5, new Dielectric(1.5));
     // hl[4] = new Sphere(Vec3(-1.0, 0.0, -1.0),   -0.45, new Dielectric(1.5));
 
-    Hittable * const world(new HittableList(hittableList, count));
+    Hittable const * const world(new HittableList(hittableList, count));
 
     Vec3 lookFrom(3.0, 3.0, 2.0);
     Vec3 lookAt(0.0, 0.0, -1.0);
