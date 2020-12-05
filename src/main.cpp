@@ -78,22 +78,47 @@ int main(int argc, char ** argv) {
     setup(argc, argv, fs, nx, ny, ns);
     srand48(time(0));
 
-    int const length(5);
-    Hittable * hl[length];
+    float const radius(0.2);
+    int const length(36);
+    int const range(sqrt(length) / 2);
+    Hittable * hittableList[length + 1];
 
-    hl[0] = new Sphere(Vec3(0.0, 0.0, -1.0),      0.5, new Lambertian(Vec3(0.1, 0.2, 0.5)));
-    hl[1] = new Sphere(Vec3(0.0, -100.5, -1.0), 100.0, new Lambertian(Vec3(0.8, 0.8, 0.0)));
-    hl[2] = new Sphere(Vec3(1.0, 0.0, -1.0),      0.5, new Metal(Vec3(0.8, 0.6, 0.2), 0.2));
-    hl[3] = new Sphere(Vec3(-1.0, 0.0, -1.0),     0.5, new Dielectric(1.5));
-    hl[4] = new Sphere(Vec3(-1.0, 0.0, -1.0),   -0.45, new Dielectric(1.5));
+    int count(0);
+    hittableList[count++] = new Sphere(Vec3(0.0, -1000.0, 0.0),   1000.0, new Lambertian(Vec3(0.5, 0.5, 0.5)));
 
-    Hittable * const world(new HittableList(hl, length));
+    for (int a(-range); a<range; ++a) for (int b(-range); b<range; ++b) {
+        float const randomizedMaterial(drand48());
+        Vec3 centre(a+(0.9*drand48()), radius, b+(0.9*drand48()));
+
+        if ((centre - Vec3(4.0, 0.2, 0.0)).length() > 0.9) {
+            if (randomizedMaterial < 0.5) {
+                hittableList[count++] = new Sphere(centre, radius,
+                    new Lambertian(Vec3(drand48()*drand48(), drand48()*drand48(), drand48()*drand48()))
+                );
+            } else if (randomizedMaterial < 0.8) {
+                hittableList[count++] = new Sphere(centre, radius,
+                    new Metal(
+                        Vec3(0.5 * (1 + drand48()), 0.5 * (1.0 + drand48()), 0.5 * (1.0 + drand48())),
+                        0.5 * drand48()
+                    )
+                );
+            } else {
+                hittableList[count++] = new Sphere(centre, radius, new Dielectric(1.5));
+            }
+        }
+    }
+    // hl[1] = new Sphere(Vec3(0.0, -100.5, -1.0), 100.0, new Lambertian(Vec3(0.8, 0.8, 0.0)));
+    // hl[2] = new Sphere(Vec3(1.0, 0.0, -1.0),      0.5, new Metal(Vec3(0.8, 0.6, 0.2), 0.2));
+    // hl[3] = new Sphere(Vec3(-1.0, 0.0, -1.0),     0.5, new Dielectric(1.5));
+    // hl[4] = new Sphere(Vec3(-1.0, 0.0, -1.0),   -0.45, new Dielectric(1.5));
+
+    Hittable * const world(new HittableList(hittableList, count));
 
     Vec3 lookFrom(3.0, 3.0, 2.0);
     Vec3 lookAt(0.0, 0.0, -1.0);
     Vec3 up(0.0, 1.0, 0.0);
     float distanceToFocus((lookAt - lookFrom).length());
-    float aperture(2.0);
+    float aperture(1.0);
     Camera camera(lookFrom, lookAt, up, M_PI / 9, float(nx) / float(ny), aperture, distanceToFocus);
 
     for (int j(ny-1); j>=0; --j) for (int i(0); i<nx; ++i) {
