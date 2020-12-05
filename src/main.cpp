@@ -124,7 +124,7 @@ int main(int argc, char ** argv) {
     float aperture(1.0);
     Camera const camera(lookFrom, lookAt, up, M_PI / 9, float(nx) / float(ny), aperture, distanceToFocus);
 
-    RayTracer rayTracer(std::move(camera), std::move(world), std::move(filePath), 50);
+    RayTracer rayTracer(std::move(filePath), std::move(camera), std::move(world), 50);
     rayTracer.start(nx, ny, ns);
 
     // for (int j(ny-1); j>=0; --j) for (int i(0); i<nx; ++i) {
