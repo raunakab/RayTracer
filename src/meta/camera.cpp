@@ -1,10 +1,6 @@
 #include <camera.h>
 
 Camera::Camera(Vec3 const & lookFrom, Vec3 const & lookAt, Vec3 const & vUp, float const verticalThetaInDegrees, float const aspectRatio, float const aperture, float const focusDistance) :
-// w(lookFrom - lookAt),
-// u(unitVector(cross(vUp, this->w))),
-// v(unitVector(cross(this->w, this->u))),
-// origin(lookFrom),
 w(unitVector(lookFrom - lookAt)),
 u(unitVector(cross(vUp, this->w))),
 v(cross(this->w, this->u)),
