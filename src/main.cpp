@@ -24,6 +24,8 @@
 #include <raytracer.h>
 #include <triangle.h>
 #include <parallelepiped.h>
+#include <light.h>
+#include <pointLight.h>
 
 void setup(int argc, char ** argv, std::string & filePath, int & nx, int & ny, int & ns) {
     if (argc != 5) Logger::error(std::string("incorrect number of arguments"), -1);
@@ -96,12 +98,12 @@ int main(int argc, char ** argv) {
 
     int const count(3);
     Hittable ** list = new Hittable*[count];
-
-    // hittableList[0] = new Triangle(Vec3(-0.5, 0.5, -2.0), Vec3(0.5, 0.5, -2.0), Vec3(0.0, -0.5, -2.0), new Lambertian(Vec3(0.5, 0.5, 0.5)));
-    // hittableList[0] = new Parallelepiped(Vec3(-0.25, -0.25, -1.0), Vec3(0.25, 0.25, -1.5), new Lambertian(Vec3(0.0, 0.2, 0.3)));
     list[0] = new Parallelepiped(Vec3(0.5, 0.5, -1.0), Vec3(1.0, 0.0, -1.0), Vec3(0.0, 1.0, 0.0), Vec3(-1.0, 0.0, -1.0), new Lambertian(Vec3(0.7, 0.2, 0.3)));
     list[1] = new Sphere(Vec3(0.0, -100.5, 0.0), 100.0, new Lambertian(Vec3(0.1, 0.3, 0.7)));
     list[2] = new Sphere(Vec3(0.0, 0.0, -1.0), 0.5, new Lambertian(Vec3(0.2, 0.7, 0.3)));
+
+    // hittableList[0] = new Triangle(Vec3(-0.5, 0.5, -2.0), Vec3(0.5, 0.5, -2.0), Vec3(0.0, -0.5, -2.0), new Lambertian(Vec3(0.5, 0.5, 0.5)));
+    // hittableList[0] = new Parallelepiped(Vec3(-0.25, -0.25, -1.0), Vec3(0.25, 0.25, -1.5), new Lambertian(Vec3(0.0, 0.2, 0.3)));
     // hittableList[0] = new Triangle(Vec3(-0.5, 0.5, -2.0), Vec3(0.5, 0.5, -2.0), Vec3(0.0, -0.5, -2.0), new Lambertian(Vec3(0.7, 0.2, 0.3)));
     // hittableList[0] = new Triangle(Vec3(-0.5, 0.5, -2.0), Vec3(-0.5, 0.0, -2.0), Vec3(0.0, 0.0, -1.0), new Lambertian(Vec3(0.3, 0.2, 0.7)));
 
@@ -114,8 +116,9 @@ int main(int argc, char ** argv) {
     float distanceToFocus((lookAt - lookFrom).length());
     float aperture(0.0);
     Camera const camera(lookFrom, lookAt, up, M_PI_2, float(nx) / float(ny), aperture, distanceToFocus);
+    Light const * const light(new PointLight(Vec3(-1.0, 1.0, -2.0)));
 
-    RayTracer rayTracer(std::move(filePath), Vec3(-1.0, 3.0, -2.0), 1.0, std::move(camera), std::move(world), 50);
+    RayTracer rayTracer(std::move(filePath), std::move(light), std::move(camera), std::move(world), 50);
     rayTracer.start(nx, ny, ns);
 
     return 0;

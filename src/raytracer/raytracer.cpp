@@ -1,35 +1,34 @@
 #include <raytracer.h>
+#include <pointLight.h>
 
 RayTracer::RayTracer(
     std::string const && filePath,
-    Vec3 const & lightPosition,
-    float const areaLightDegree,
+    Light const * const && light,
     Camera const && camera,
     Hittable const * const && hittable,
     int const maxBounce
 ) :
 filePath(filePath),
-lightPosition(lightPosition),
-areaLightDegree(areaLightDegree),
+light(light),
 camera(std::move(camera)),
 hittable(hittable),
 maxBounce(maxBounce) {}
-RayTracer::~RayTracer() { delete this->hittable; }
+RayTracer::~RayTracer() {
+    delete this->light;
+    delete this->hittable;
+}
 
 Vec3 RayTracer::colour(Ray const & ray, int const currentBounce) const {
     HitRecord record;
+    Hittable const * const & hittable(this->hittable);
 
-    if (this->hittable->hit(ray, 0.001, MAXFLOAT, record)) {
+    if (hittable->hit(ray, 0.001, MAXFLOAT, record)) {
         Ray scattered(Vec3(0.0, 0.0, 0.0), Vec3(0.0, 0.0, 0.0));
         Vec3 attenuation(0.0, 0.0, 0.0);
         Vec3 const & hitPoint(record.hitPoint);
 
         if (currentBounce < maxBounce && record.material && record.material->scatter(ray, record, attenuation, scattered)) {
-            Vec3 const newLightPosition(this->lightPosition + (this->areaLightDegree * randomUnitVector()));
-            float contribution(0.5);
-            Ray lightRay(hitPoint, newLightPosition - hitPoint);
-
-            if (this->hittable->hit(lightRay, 0.001, MAXFLOAT, record)) contribution = 0.1;
+            float const contribution(this->light->contribution(hittable, hitPoint));
             return contribution * (attenuation * this->colour(scattered, currentBounce + 1));
         }
         else return Vec3(0.0, 0.0, 0.0);

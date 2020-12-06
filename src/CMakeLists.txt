@@ -15,6 +15,8 @@ add_executable(
     ../includes/metal.h
 
     ../includes/camera.h
+    ../includes/light.h
+    ../includes/pointLight.h
     ../includes/ray.h
     ../includes/vec3.h
     ../includes/vec3Utils.h
@@ -36,6 +38,8 @@ add_executable(
     materials/metal.cpp
 
     meta/camera.cpp
+    meta/pointLight.cpp
+    meta/light.cpp
     meta/ray.cpp
     meta/vec3.cpp
     meta/vec3Utils.cpp

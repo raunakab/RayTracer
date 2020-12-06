@@ -16,6 +16,7 @@
 #include <vec3.h>
 #include <ray.h>
 #include <hitRecord.h>
+#include <light.h>
 
 class RayTracer {
 private:
@@ -30,16 +31,14 @@ private:
 
 public:
     std::string const filePath;
-    Vec3 const lightPosition;
-    float const areaLightDegree;
+    Light const * const light;
     Camera const camera;
     Hittable const * const hittable;
     int const maxBounce;
 
     RayTracer(
         std::string const &&,
-        Vec3 const &,
-        float const,
+        Light const * const &&,
         Camera const &&,
         Hittable const * const &&,
         int const
