@@ -3,7 +3,6 @@ project( src )
 add_executable(
     main
     main.cpp
-    ../includes/camera.h
 
     ../includes/hitRecord.h
     ../includes/hittable.h
@@ -14,10 +13,14 @@ add_executable(
     ../includes/material.h
     ../includes/metal.h
 
+    ../includes/camera.h
     ../includes/ray.h
-    ../includes/sphere.h
     ../includes/vec3.h
     ../includes/vec3Utils.h
+
+    ../includes/rectangle.h
+    ../includes/triangle.h
+    ../includes/sphere.h
 
     ../includes/raytracer.h
 
@@ -35,6 +38,8 @@ add_executable(
     meta/vec3.cpp
     meta/vec3Utils.cpp
 
+    objects/rectangle.cpp
+    objects/triangle.cpp
     objects/sphere.cpp
 
     raytracer/raytracer.cpp

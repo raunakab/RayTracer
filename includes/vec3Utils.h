@@ -55,6 +55,7 @@ Vec3 randomInUnitDisk();
 void reflect(Vec3 const &, Vec3 const &, Vec3 &);
 bool refract(Vec3 const &, Vec3 const &, float const, Vec3 &);
 float schlick(float const, float const);
+bool withinRange(float const, float const, float const);
 
 // my own additions
 inline std::ofstream & operator<<(std::ofstream & ofs, Vec3 & v) {

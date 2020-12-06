@@ -22,13 +22,12 @@ bool Sphere::hit(Ray const & r, float const t_min, float const t_max, HitRecord 
     float const discriminant((b*b) - (a*c));
 
     if (discriminant > 0) {
-        hr.material = this->material; /* DON'T KNOW ABOUT THIS ONE JUST YET! */
-
         float const firstTerm(-b / a);
         float const secondTerm(sqrt(discriminant) / a);
 
         float root(firstTerm - secondTerm);
         if (t_min < root && root < t_max) {
+            hr.material = this->material; /* DON'T KNOW ABOUT THIS ONE JUST YET! */
             hr.t0 = root;
             hr.hitPoint = r.pointAtParameter(root);
             hr.normal = (hr.hitPoint - ctr) / rad;
@@ -38,6 +37,7 @@ bool Sphere::hit(Ray const & r, float const t_min, float const t_max, HitRecord 
 
         root = firstTerm + secondTerm;
         if (t_min < root && root < t_max) {
+            hr.material = this->material; /* DON'T KNOW ABOUT THIS ONE JUST YET! */
             hr.t0 = root;
             hr.hitPoint = r.pointAtParameter(root);
             hr.normal = (hr.hitPoint - ctr) / rad;

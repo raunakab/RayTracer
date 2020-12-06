@@ -41,3 +41,8 @@ float schlick(float const cosine, float const refractionIndex) {
 
     return r0 + ((1.0 - r0) * pow((1.0 - cosine), 5));
 }
+bool withinRange(float const observedValue, float const expectedValue, float const tolerance) {
+    if (observedValue < expectedValue - tolerance) return false;
+    if (expectedValue + tolerance < observedValue) return false;
+    return true;
+}

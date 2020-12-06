@@ -1,4 +1,5 @@
 #include <hittableList.h>
+#include <Logger/logger.h>
 
 HittableList::HittableList(Hittable ** const list, int const length) : list(list), length(length) {}
 HittableList::~HittableList() {
@@ -6,6 +7,7 @@ HittableList::~HittableList() {
     int const & length(this->length);
 
     for (int i(0); i<length; ++i) delete list[i];
+    delete this->list;
 }
 
 bool HittableList::hit(Ray const & r, float const t_min, float const t_max, HitRecord & hr) const {
