@@ -18,7 +18,7 @@ add_executable(
     ../includes/vec3.h
     ../includes/vec3Utils.h
 
-    ../includes/rectangle.h
+    ../includes/parallelepiped.h
     ../includes/triangle.h
     ../includes/sphere.h
 
@@ -38,7 +38,7 @@ add_executable(
     meta/vec3.cpp
     meta/vec3Utils.cpp
 
-    objects/rectangle.cpp
+    objects/parallelepiped.cpp
     objects/triangle.cpp
     objects/sphere.cpp
 

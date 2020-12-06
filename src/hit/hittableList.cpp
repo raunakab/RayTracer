@@ -11,11 +11,14 @@ HittableList::~HittableList() {
 }
 
 bool HittableList::hit(Ray const & r, float const t_min, float const t_max, HitRecord & hr) const {
+    float const length(this->length);
+    Hittable ** list(this->list);
+
     bool hitAnything(false);
     float closestSoFar(t_max);
     HitRecord aggregateHitRecord(0.0, Vec3(0.0, 0.0, 0.0), Vec3(0.0, 0.0, 0.0), nullptr);
 
-    for (unsigned int i(0); i<this->length; ++i) if (this->list[i]->hit(r, t_min, closestSoFar, aggregateHitRecord)) {
+    for (unsigned int i(0); i<length; ++i) if (list[i]->hit(r, t_min, closestSoFar, aggregateHitRecord)) {
         hr = aggregateHitRecord;
         closestSoFar = hr.t0;
         hitAnything = true;

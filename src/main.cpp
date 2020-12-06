@@ -23,7 +23,7 @@
 #include <dielectric.h>
 #include <raytracer.h>
 #include <triangle.h>
-#include <rectangle.h>
+#include <parallelepiped.h>
 
 void setup(int argc, char ** argv, std::string & filePath, int & nx, int & ny, int & ns) {
     if (argc != 5) Logger::error(std::string("incorrect number of arguments"), -1);
@@ -98,8 +98,8 @@ int main(int argc, char ** argv) {
     Hittable ** list = new Hittable*[count];
 
     // hittableList[0] = new Triangle(Vec3(-0.5, 0.5, -2.0), Vec3(0.5, 0.5, -2.0), Vec3(0.0, -0.5, -2.0), new Lambertian(Vec3(0.5, 0.5, 0.5)));
-    // hittableList[0] = new Rectangle(Vec3(-0.25, -0.25, -1.0), Vec3(0.25, 0.25, -1.5), new Lambertian(Vec3(0.0, 0.2, 0.3)));
-    list[0] = new Rectangle(Vec3(0.5, 0.5, -1.0), Vec3(1.0, 0.0, -1.0), Vec3(0.0, 1.0, 0.0), Vec3(-1.0, 0.0, -1.0), new Lambertian(Vec3(0.7, 0.2, 0.3)));
+    // hittableList[0] = new Parallelepiped(Vec3(-0.25, -0.25, -1.0), Vec3(0.25, 0.25, -1.5), new Lambertian(Vec3(0.0, 0.2, 0.3)));
+    list[0] = new Parallelepiped(Vec3(0.5, 0.5, -1.0), Vec3(1.0, 0.0, -1.0), Vec3(0.0, 1.0, 0.0), Vec3(-1.0, 0.0, -1.0), new Lambertian(Vec3(0.7, 0.2, 0.3)));
     // hittableList[0] = new Triangle(Vec3(-0.5, 0.5, -2.0), Vec3(0.5, 0.5, -2.0), Vec3(0.0, -0.5, -2.0), new Lambertian(Vec3(0.7, 0.2, 0.3)));
     // hittableList[0] = new Triangle(Vec3(-0.5, 0.5, -2.0), Vec3(-0.5, 0.0, -2.0), Vec3(0.0, 0.0, -1.0), new Lambertian(Vec3(0.3, 0.2, 0.7)));
 

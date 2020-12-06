@@ -7,13 +7,13 @@
 #include <triangle.h>
 #include <hittable.h>
 
-class Rectangle : public Hittable {
+class Parallelepiped : public Hittable {
 private:
-    Rectangle() = delete;
-    Rectangle(Rectangle const &) = delete;
-    Rectangle(Rectangle const &&) = delete;
-    void operator=(Rectangle const &) = delete;
-    void operator=(Rectangle const &&) = delete;
+    Parallelepiped() = delete;
+    Parallelepiped(Parallelepiped const &) = delete;
+    Parallelepiped(Parallelepiped const &&) = delete;
+    void operator=(Parallelepiped const &) = delete;
+    void operator=(Parallelepiped const &&) = delete;
 
     Hittable ** determineHittableList() const;
 
@@ -26,8 +26,8 @@ public:
     Material const * const material;
     HittableList hittableList;
 
-    Rectangle(Vec3 const &, Vec3 const &, Vec3 const &, Vec3 const &, Material const * const);
-    ~Rectangle();
+    Parallelepiped(Vec3 const &, Vec3 const &, Vec3 const &, Vec3 const &, Material const * const);
+    ~Parallelepiped();
 
     virtual bool hit(Ray const &, float const, float const, HitRecord &) const;
 };

@@ -1,7 +1,7 @@
-#include <rectangle.h>
+#include <parallelepiped.h>
 #include <lambertian.h>
 
-Rectangle::Rectangle(Vec3 const & origin, Vec3 const & basis0, Vec3 const & basis1, Vec3 const & basis2, Material const * const material) :
+Parallelepiped::Parallelepiped(Vec3 const & origin, Vec3 const & basis0, Vec3 const & basis1, Vec3 const & basis2, Material const * const material) :
 meshCount(12),
 origin(origin),
 basis0(basis0),
@@ -10,9 +10,9 @@ basis2(basis2),
 material(material),
 hittableList(this->determineHittableList(), 12)
 {}
-Rectangle::~Rectangle() { delete this->material; }
+Parallelepiped::~Parallelepiped() { delete this->material; }
 
-Hittable ** Rectangle::determineHittableList() const {
+Hittable ** Parallelepiped::determineHittableList() const {
     Vec3 const & b0(this->basis0);
     Vec3 const & b1(this->basis1);
     Vec3 const & b2(this->basis2);
@@ -70,7 +70,7 @@ Hittable ** Rectangle::determineHittableList() const {
     return list;
 }
 
-bool Rectangle::hit(Ray const & ray, float const tMin, float const tMax, HitRecord & record) const {
+bool Parallelepiped::hit(Ray const & ray, float const tMin, float const tMax, HitRecord & record) const {
     if (this->hittableList.hit(ray, tMin, tMax, record)) return true;
     else return false;
 }
