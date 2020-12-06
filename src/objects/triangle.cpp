@@ -1,5 +1,4 @@
 #include <triangle.h>
-#include <Logger/logger.h>
 
 Triangle::Triangle(Vec3 const & a, Vec3 const & b, Vec3 const & c, Material const * const material) :
 a(a),
