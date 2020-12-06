@@ -8,6 +8,7 @@ add_executable(
     ../includes/hittable.h
     ../includes/hittableList.h
 
+    ../includes/blackbody.h
     ../includes/dielectric.h
     ../includes/lambertian.h
     ../includes/material.h
@@ -28,6 +29,7 @@ add_executable(
     hit/hittable.cpp
     hit/hittableList.cpp
 
+    materials/blackbody.cpp
     materials/dielectric.cpp
     materials/lambertian.cpp
     materials/material.cpp

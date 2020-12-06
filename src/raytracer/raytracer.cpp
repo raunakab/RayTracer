@@ -2,11 +2,15 @@
 
 RayTracer::RayTracer(
     std::string const && filePath,
+    Vec3 const & lightPosition,
+    float const areaLightDegree,
     Camera const && camera,
     Hittable const * const && hittable,
     int const maxBounce
 ) :
 filePath(filePath),
+lightPosition(lightPosition),
+areaLightDegree(areaLightDegree),
 camera(std::move(camera)),
 hittable(hittable),
 maxBounce(maxBounce) {}

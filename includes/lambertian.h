@@ -2,10 +2,10 @@
 #define LAMBERTIAN_H
 
 #include <vec3.h>
-#include <material.h>
 #include <vec3Utils.h>
+#include <blackbody.h>
 
-class Lambertian : public Material {
+class Lambertian : public BlackBody {
 private:
     Lambertian() = delete;
     Lambertian(Lambertian const &) = delete;
@@ -15,7 +15,7 @@ private:
     void operator=(Lambertian const &&) = delete;
 
 public:
-    Vec3 const albedo;
+    // Vec3 const albedo;
 
     Lambertian(Vec3 const &);
     ~Lambertian();

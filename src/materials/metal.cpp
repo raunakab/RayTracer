@@ -1,6 +1,6 @@
 #include <metal.h>
 
-Metal::Metal(Vec3 const & albedo, float const fuzz) : Material(), albedo(albedo), fuzz(this->determineFuzz(fuzz)) {}
+Metal::Metal(Vec3 const & albedo, float const fuzz) : BlackBody(albedo), fuzz(this->determineFuzz(fuzz)) {}
 Metal::~Metal() {}
 
 float Metal::determineFuzz(float const fuzz) const {

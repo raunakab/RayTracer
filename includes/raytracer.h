@@ -30,12 +30,16 @@ private:
 
 public:
     std::string const filePath;
+    Vec3 const lightPosition;
+    float const areaLightDegree;
     Camera const camera;
     Hittable const * const hittable;
     int const maxBounce;
 
     RayTracer(
         std::string const &&,
+        Vec3 const &,
+        float const,
         Camera const &&,
         Hittable const * const &&,
         int const

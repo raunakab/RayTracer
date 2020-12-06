@@ -1,6 +1,6 @@
 #include <lambertian.h>
 
-Lambertian::Lambertian(Vec3 const & albedo) : Material(), albedo(albedo) {}
+Lambertian::Lambertian(Vec3 const & albedo) : BlackBody(albedo) {}
 Lambertian::~Lambertian() {}
 
 bool Lambertian::scatter(Ray const & rayIn, HitRecord const & record, Vec3 & attenuation, Ray & scattered) const {

@@ -113,7 +113,7 @@ int main(int argc, char ** argv) {
     float aperture(0.0);
     Camera const camera(lookFrom, lookAt, up, M_PI_2, float(nx) / float(ny), aperture, distanceToFocus);
 
-    RayTracer rayTracer(std::move(filePath), std::move(camera), std::move(world), 50);
+    RayTracer rayTracer(std::move(filePath), Vec3(-1.0, 3.0, 0.0), 0.0, std::move(camera), std::move(world), 50);
     rayTracer.start(nx, ny, ns);
 
     return 0;
