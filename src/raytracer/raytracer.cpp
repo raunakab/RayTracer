@@ -22,9 +22,19 @@ Vec3 RayTracer::colour(Ray const & ray, int const currentBounce) const {
     if (this->hittable->hit(ray, 0.001, MAXFLOAT, record)) {
         Ray scattered(Vec3(0.0, 0.0, 0.0), Vec3(0.0, 0.0, 0.0));
         Vec3 attenuation(0.0, 0.0, 0.0);
+        Vec3 const & hitPoint(record.hitPoint);
 
-        if (currentBounce < maxBounce && record.material && record.material->scatter(ray, record, attenuation, scattered))
-            return attenuation * this->colour(scattered, currentBounce + 1);
+        Vec3 const newLightPosition(this->lightPosition + (this->areaLightDegree * randomUnitVector()));
+        float contribution(0.5);
+        Ray lightRay(hitPoint, newLightPosition - hitPoint);
+
+        if (this->hittable->hit(lightRay, 0.001, MAXFLOAT, record)) {
+            contribution = 0.1;
+        }
+
+        if (currentBounce < maxBounce && record.material && record.material->scatter(ray, record, attenuation, scattered)) {
+            return (contribution * attenuation) * this->colour(scattered, currentBounce + 1);
+        }
         else return Vec3(0.0, 0.0, 0.0);
     } else {
         Vec3 dir(ray.direction());
