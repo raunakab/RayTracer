@@ -37,7 +37,7 @@ bool Triangle::hit(Ray const & ray, float const tMin, float const tMax, HitRecor
     float const totalArea(nonUnitNormal.length());
     float const barycentricArea((areaAlpha + areaBeta + areaGamma) / totalArea);
 
-    if (!withinRange(barycentricArea, 1.0, 0.01)) return false;
+    if (!withinRange(barycentricArea, 1.0, 0.0001)) return false;
     if (t0 < tMin || tMax < t0) return false;
 
     record.material = this->material;

@@ -4,6 +4,7 @@
 #include <vec3.h>
 #include <light.h>
 #include <hitRecord.h>
+#include <vec3Utils.h>
 
 class PointLight : public Light {
 private:
@@ -15,7 +16,7 @@ private:
     void operator=(PointLight const &&) = delete;
 
 public:
-    PointLight(Vec3 const &);
+    PointLight(Vec3 const &, float const, float const, float const);
     ~PointLight();
 
     virtual float contribution(Hittable const * const, Vec3 const &) const;

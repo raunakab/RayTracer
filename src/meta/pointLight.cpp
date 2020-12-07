@@ -1,13 +1,14 @@
 #include <pointLight.h>
 
-PointLight::PointLight(Vec3 const & lightPosition) : Light(lightPosition) {}
+PointLight::PointLight(Vec3 const & lightPosition, float const lightContribution, float const shadowContribution, float const lightFuzz) :
+Light(lightPosition, lightContribution, shadowContribution, lightFuzz)
+{}
 PointLight::~PointLight() {}
 
 float PointLight::contribution(Hittable const * const hittable, Vec3 const & hitPoint) const {
     HitRecord record;
-    float contribution(0.5);
-    Ray lightRay(hitPoint, this->lightPosition - hitPoint);
+    Ray lightRay(hitPoint, this->lightPosition - hitPoint + (this->lightFuzz * randomUnitVector()));
 
-    if (hittable->hit(lightRay, 0.001, MAXFLOAT, record)) contribution = 0.1;
-    return contribution;
+    if (hittable->hit(lightRay, 0.001, MAXFLOAT, record)) return this->shadowContribution;
+    return this->lightContribution;
 }

@@ -26,6 +26,7 @@
 #include <parallelepiped.h>
 #include <light.h>
 #include <pointLight.h>
+#include <directionalLight.h>
 
 void setup(int argc, char ** argv, std::string & filePath, int & nx, int & ny, int & ns) {
     if (argc != 5) Logger::error(std::string("incorrect number of arguments"), -1);
@@ -116,7 +117,7 @@ int main(int argc, char ** argv) {
     float distanceToFocus((lookAt - lookFrom).length());
     float aperture(0.0);
     Camera const camera(lookFrom, lookAt, up, M_PI_2, float(nx) / float(ny), aperture, distanceToFocus);
-    Light const * const light(new PointLight(Vec3(-1.0, 1.0, -2.0)));
+    Light const * const light(new DirectionalLight(Vec3(-1.0, 100.0, -2.0), 0.5, 0.1, 0.0));
 
     RayTracer rayTracer(std::move(filePath), std::move(light), std::move(camera), std::move(world), 50);
     rayTracer.start(nx, ny, ns);

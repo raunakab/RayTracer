@@ -14,8 +14,11 @@ private:
 
 public:
     Vec3 const lightPosition;
+    float const lightContribution;
+    float const shadowContribution;
+    float const lightFuzz;
 
-    Light(Vec3 const &);
+    Light(Vec3 const &, float const, float const, float const);
     virtual ~Light();
 
     virtual float contribution(Hittable const * const, Vec3 const &) const = 0;

@@ -9,6 +9,7 @@ add_executable(
     ../includes/hittableList.h
 
     ../includes/blackbody.h
+    ../includes/blinn.h
     ../includes/dielectric.h
     ../includes/lambertian.h
     ../includes/material.h
@@ -17,6 +18,7 @@ add_executable(
     ../includes/camera.h
     ../includes/light.h
     ../includes/pointLight.h
+    ../includes/directionalLight.h
     ../includes/ray.h
     ../includes/vec3.h
     ../includes/vec3Utils.h
@@ -32,6 +34,7 @@ add_executable(
     hit/hittableList.cpp
 
     materials/blackbody.cpp
+    materials/blinn.cpp
     materials/dielectric.cpp
     materials/lambertian.cpp
     materials/material.cpp
@@ -39,6 +42,7 @@ add_executable(
 
     meta/camera.cpp
     meta/pointLight.cpp
+    meta/directionalLight.cpp
     meta/light.cpp
     meta/ray.cpp
     meta/vec3.cpp
