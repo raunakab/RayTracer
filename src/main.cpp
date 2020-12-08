@@ -102,8 +102,8 @@ int main(int argc, char ** argv) {
     Hittable ** list = new Hittable*[count];
     list[0] = new Parallelepiped(Vec3(0.5, 0.5, -1.0), Vec3(1.0, 0.0, -1.0), Vec3(0.0, 1.0, 0.0), Vec3(-1.0, 0.0, -1.0), new Lambertian(Vec3(0.7, 0.2, 0.3)));
     list[1] = new Sphere(Vec3(0.0, -100.5, 0.0), 100.0, new Lambertian(Vec3(0.1, 0.3, 0.7)));
-    // list[2] = new Sphere(Vec3(0.0, 0.0, -1.0), 0.5, new Lambertian(Vec3(0.2, 0.7, 0.3)));
-    list[2] = new Sphere(Vec3(0.0, 0.0, -1.0), 0.5, new Blinn(Vec3(0.2, 0.7, 0.3), 10.0, 0.5, 0.5, 10.0));
+    list[2] = new Sphere(Vec3(0.0, 0.0, -1.0), 0.5, new Lambertian(Vec3(0.2, 0.7, 0.3)));
+    // list[2] = new Sphere(Vec3(0.0, 0.0, -1.0), 0.5, new Blinn(Vec3(0.2, 0.7, 0.3), 10.0, 0.5, 0.5, 10.0));
 
     // hittableList[0] = new Triangle(Vec3(-0.5, 0.5, -2.0), Vec3(0.5, 0.5, -2.0), Vec3(0.0, -0.5, -2.0), new Lambertian(Vec3(0.5, 0.5, 0.5)));
     // hittableList[0] = new Parallelepiped(Vec3(-0.25, -0.25, -1.0), Vec3(0.25, 0.25, -1.5), new Lambertian(Vec3(0.0, 0.2, 0.3)));
@@ -119,7 +119,8 @@ int main(int argc, char ** argv) {
     float distanceToFocus((lookAt - lookFrom).length());
     float aperture(0.0);
     Camera const camera(lookFrom, lookAt, up, M_PI_2, float(nx) / float(ny), aperture, distanceToFocus);
-    Light const * const light(new DirectionalLight(Vec3(1.0, 1.0, 1.0), Vec3(-1.0, 1.0, 2.0), 0.5, 0.1, 0.0));
+    // Light const * const light(new DirectionalLight(Vec3(1.0, 1.0, 1.0), Vec3(-1.0, 10.0, -3.0), 0.5, 0.1, 5.0));
+    Light const * const light(new PointLight(Vec3(1.0, 1.0, 1.0), Vec3(-1.0, 10.0, -2.0), 0.5, 0.1, 2.0));
 
     RayTracer rayTracer(std::move(filePath), std::move(light), std::move(camera), std::move(world), 50);
     rayTracer.start(nx, ny, ns);
