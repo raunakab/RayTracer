@@ -16,7 +16,7 @@ private:
     void operator=(DirectionalLight const &&) = delete;
 
 public:
-    DirectionalLight(Vec3 const &, float const, float const, float const);
+    DirectionalLight(Vec3 const &, Vec3 const &, float const, float const, float const);
     ~DirectionalLight();
 
     virtual float contribution(Hittable const * const, Vec3 const &) const;

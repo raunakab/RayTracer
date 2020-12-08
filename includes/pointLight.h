@@ -16,7 +16,7 @@ private:
     void operator=(PointLight const &&) = delete;
 
 public:
-    PointLight(Vec3 const &, float const, float const, float const);
+    PointLight(Vec3 const &, Vec3 const &, float const, float const, float const);
     ~PointLight();
 
     virtual float contribution(Hittable const * const, Vec3 const &) const;

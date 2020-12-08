@@ -5,6 +5,7 @@
 #include <vec3.h>
 #include <vec3Utils.h>
 #include <blackbody.h>
+#include <light.h>
 
 class Metal : public BlackBody {
 private:
@@ -22,7 +23,7 @@ public:
     Metal(Vec3 const &, float const);
     ~Metal();
 
-    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &) const;
+    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &, Light const * const) const;
 };
 
 #endif

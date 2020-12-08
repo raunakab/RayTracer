@@ -27,7 +27,7 @@ Vec3 RayTracer::colour(Ray const & ray, int const currentBounce) const {
         Vec3 attenuation(0.0, 0.0, 0.0);
         Vec3 const & hitPoint(record.hitPoint);
 
-        if (currentBounce < maxBounce && record.material && record.material->scatter(ray, record, attenuation, scattered)) {
+        if (currentBounce < maxBounce && record.material && record.material->scatter(ray, record, attenuation, scattered, this->light)) {
             float const contribution(this->light->contribution(hittable, hitPoint));
             return contribution * (attenuation * this->colour(scattered, currentBounce + 1));
         }

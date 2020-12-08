@@ -4,6 +4,7 @@
 #include <vec3.h>
 #include <vec3Utils.h>
 #include <blackbody.h>
+#include <light.h>
 
 class Lambertian : public BlackBody {
 private:
@@ -15,12 +16,10 @@ private:
     void operator=(Lambertian const &&) = delete;
 
 public:
-    // Vec3 const albedo;
-
     Lambertian(Vec3 const &);
     ~Lambertian();
 
-    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &) const;
+    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &, Light const * const) const;
 };
 
 #endif

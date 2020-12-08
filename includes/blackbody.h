@@ -3,6 +3,7 @@
 
 #include <material.h>
 #include <vec3.h>
+#include <light.h>
 
 class BlackBody : public Material {
 private:
@@ -18,7 +19,7 @@ public:
     BlackBody(Vec3 const & albedo);
     virtual ~BlackBody();
 
-    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &) const = 0;
+    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &, Light const * const) const = 0;
 };
 
 #endif

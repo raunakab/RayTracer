@@ -4,6 +4,8 @@
 #include <vec3.h>
 #include <hittable.h>
 
+class Hittable;
+
 class Light {
 private:
     Light() = delete;
@@ -13,12 +15,13 @@ private:
     void operator=(Light const &&) = delete;
 
 public:
+    Vec3 const lightColour;
     Vec3 const lightPosition;
     float const lightContribution;
     float const shadowContribution;
     float const lightFuzz;
 
-    Light(Vec3 const &, float const, float const, float const);
+    Light(Vec3 const &, Vec3 const &, float const, float const, float const);
     virtual ~Light();
 
     virtual float contribution(Hittable const * const, Vec3 const &) const = 0;

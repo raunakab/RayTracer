@@ -4,8 +4,10 @@
 #include <ray.h>
 #include <hitRecord.h>
 #include <vec3.h>
+#include <light.h>
 
 class HitRecord;
+class Light;
 
 class Material {
 private:
@@ -18,7 +20,7 @@ public:
     Material();
     virtual ~Material();
 
-    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &) const = 0;
+    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &, Light const * const) const = 0;
 };
 
 #endif

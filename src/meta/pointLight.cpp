@@ -1,7 +1,7 @@
 #include <pointLight.h>
 
-PointLight::PointLight(Vec3 const & lightPosition, float const lightContribution, float const shadowContribution, float const lightFuzz) :
-Light(lightPosition, lightContribution, shadowContribution, lightFuzz)
+PointLight::PointLight(Vec3 const & lightColour, Vec3 const & lightPosition, float const lightContribution, float const shadowContribution, float const lightFuzz) :
+Light(lightColour, lightPosition, lightContribution, shadowContribution, lightFuzz)
 {}
 PointLight::~PointLight() {}
 

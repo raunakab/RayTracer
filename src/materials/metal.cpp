@@ -9,7 +9,7 @@ float Metal::determineFuzz(float const fuzz) const {
     return fuzz;
 }
 
-bool Metal::scatter(Ray const & rayIn, HitRecord const & record, Vec3 & attenuation, Ray & scattered) const {
+bool Metal::scatter(Ray const & rayIn, HitRecord const & record, Vec3 & attenuation, Ray & scattered, Light const * const light) const {
     Vec3 const & hitPoint(record.hitPoint);
     Vec3 const & normal(record.normal);
     float const & fuzz(this->fuzz);

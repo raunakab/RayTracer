@@ -3,6 +3,7 @@
 
 #include <material.h>
 #include <vec3Utils.h>
+#include <light.h>
 
 class Dielectric : public Material {
 private:
@@ -19,7 +20,7 @@ public:
     Dielectric(float const);
     ~Dielectric();
 
-    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &) const;
+    virtual bool scatter(Ray const &, HitRecord const &, Vec3 &, Ray &, Light const * const) const;
 };
 
 #endif

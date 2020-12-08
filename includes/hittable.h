@@ -6,6 +6,8 @@
 #include <ray.h>
 #include <hitRecord.h>
 
+class HitRecord;
+
 class Hittable {
 private:
     Hittable(Hittable const &) = delete;

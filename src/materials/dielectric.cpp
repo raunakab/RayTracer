@@ -3,7 +3,7 @@
 Dielectric::Dielectric(float const refractionIndex) : refractionIndex(refractionIndex) {}
 Dielectric::~Dielectric() {}
 
-bool Dielectric::scatter(Ray const & rayIn, HitRecord const & record, Vec3 & attenuation, Ray & scattered) const {
+bool Dielectric::scatter(Ray const & rayIn, HitRecord const & record, Vec3 & attenuation, Ray & scattered, Light const * const light) const {
     Vec3 outwardNormal(0.0, 0.0, 0.0);
     Vec3 reflected(0.0, 0.0, 0.0);
     Vec3 refracted(0.0, 0.0, 0.0);
